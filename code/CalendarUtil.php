@@ -1,5 +1,7 @@
 <?php
 
+namespace SLC\Calendar;
+
 class CalendarUtil {
 
 	const ONE_DAY = "OneDay";

@@ -1,6 +1,7 @@
 <?php
 use SilverStripe\Control\Controller;
 use SilverStripe\ORM\DataObject;
+use SLC\Calendar\CalendarUtil;
 
 class CalendarDateTime extends DataObject {
 

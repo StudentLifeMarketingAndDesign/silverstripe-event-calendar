@@ -2,6 +2,7 @@
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\ORM\DataObject;
+use SLC\Calendar\CalendarUtil;
 
 class CalendarController extends PageController {
 
