@@ -1,4 +1,7 @@
 <?php
+
+namespace SLC\Calendar;
+
 use SilverStripe\Control\Controller;
 use SilverStripe\ORM\DataObject;
 use SLC\Calendar\CalendarUtil;

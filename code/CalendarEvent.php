@@ -1,4 +1,7 @@
 <?php
+
+namespace SLC\Calendar;
+
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverStripe\Forms\TextField;

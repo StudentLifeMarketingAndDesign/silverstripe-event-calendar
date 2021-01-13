@@ -1,5 +1,5 @@
 <?php
-
+namespace SLC\Calendar;
 /*
  * This file is part of the sfDateTimePlugin package.
  * (c) 2007 Stephen Riesenberg <sjohnr@gmail.com>
@@ -18,18 +18,18 @@
  * @author	Stephen Riesenberg <sjohnr@gmail.com>
  * @version	SVN: $Id$
  */
-class sfDateTimeToolkit
-{
+class sfDateTimeToolkit {
 	/**
 	 * Breaks down the individual components of the timestamp.
 	 *
 	 * @param	timestamp
 	 * @return	array
 	 */
-	public static function breakdown($ts = null)
-	{
+	public static function breakdown($ts = null) {
 		// default to now
-		if ($ts === null) $ts = sfDateTimeToolkit::now();
+		if ($ts === null) {
+			$ts = sfDateTimeToolkit::now();
+		}
 
 		// gather individual variables
 		$H = date('H', $ts); // hour
@@ -49,8 +49,7 @@ class sfDateTimeToolkit
 	 *
 	 * @see		time
 	 */
-	public static function now()
-	{
+	public static function now() {
 		return time();
 	}
 
@@ -59,22 +58,14 @@ class sfDateTimeToolkit
 	 *
 	 * @param	mixed	value to use for timestamp retrieval
 	 */
-	public static function getTS($value = null)
-	{
-		if ($value === null)
-		{
+	public static function getTS($value = null) {
+		if ($value === null) {
 			return sfDateTimeToolkit::now();
-		}
-		else if ($value instanceof sfDate)
-		{
+		} else if ($value instanceof sfDate) {
 			return $value->get();
-		}
-		else if (!is_numeric($value))
-		{
+		} else if (!is_numeric($value)) {
 			return strtotime($value);
-		}
-		else if (is_numeric($value))
-		{
+		} else if (is_numeric($value)) {
 			return $value;
 		}
 

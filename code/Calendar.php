@@ -1,4 +1,7 @@
 <?php
+
+namespace SLC\Calendar;
+
 use SilverStripe\ORM\DataList;
 
 class Calendar extends Page {
