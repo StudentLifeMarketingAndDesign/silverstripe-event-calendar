@@ -1,5 +1,5 @@
 {
-    "name": "md/event-calendar",
+    "name": "md/silverstripe-event-calendar",
     "description": "SilverStripe Event Calendar",
     "type": "silverstripe-vendormodule",
     "require":
