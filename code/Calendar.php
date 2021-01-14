@@ -4,10 +4,12 @@ namespace SLC\Calendar;
 
 use SilverStripe\ORM\DataList;
 
-class Calendar extends Page {
+class Calendar extends \Page {
+
+	private static $table_name = 'Calendar';
 
 	private static $allowed_children = array(
-		'CalendarEvent',
+		'SLC\Calendar\CalendarEvent',
 	);
 
 	private static $icon_class = 'font-icon-calendar';
@@ -18,7 +20,7 @@ class Calendar extends Page {
 	public function getEventList($start, $end, $filter = null, $limit = null, $announcement_filter = null) {
 		$children = $this->AllChildren();
 		$ids = $children->column('ID');
-		$datetimeClass = 'CalendarDateTime';
+		$datetimeClass = CalendarDateTime::class;
 		$relation = 'EventID';
 		$eventClass = 'CalendarEvent';
 		// $datetimeClass = $this->getDateTimeClass();
@@ -29,8 +31,7 @@ class Calendar extends Page {
 				$relation => $ids,
 			))
 			->innerJoin($eventClass, "$relation = \"{$eventClass}\".\"ID\"")
-			->innerJoin("SiteTree", "\"SiteTree\".\"ID\" = \"{$eventClass}\".\"ID\"")
-			->where("Recursion != 1");
+			->innerJoin("SiteTree", "\"SiteTree\".\"ID\" = \"{$eventClass}\".\"ID\"");
 		if ($start && $end) {
 			$list = $list->where("
 							(StartDate <= '$start' AND EndDate >= '$end') OR
@@ -88,4 +89,33 @@ class Calendar extends Page {
 
 	// }
 
+	public function EventsToday() {
+		$calendar = $this;
+		$today = sfDate::getInstance()->date();
+		$events = $calendar->getEventList($today, $today);
+		return $events;
+	}
+
+	public function AllEvents() {
+		$calendar = $this;
+		$events = $calendar->getEventList('1900-01-01', '3000-01-01');
+		return $events;
+	}
+
+	public function AllDates() {
+		// $dates = CalendarDateTime::get();
+		// $datesArray = $dates->toArray();
+
+		// $datesArrayList = new ArrayList($datesArray);
+		// $datesArrayList->removeDuplicates('StartDate');
+		$calendar = $this->owner;
+		$datesArrayList = new ArrayList();
+
+		$dates = $calendar->getEventList('1900-01-01', '3000-01-01');
+		foreach ($dates as $date) {
+			$datesArrayList->push($date);
+		}
+		$datesArrayList->removeDuplicates('StartDate');
+		return $datesArrayList;
+	}
 }

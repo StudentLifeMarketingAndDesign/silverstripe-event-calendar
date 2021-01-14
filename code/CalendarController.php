@@ -7,7 +7,7 @@ use SilverStripe\Control\HTTPRequest;
 use SilverStripe\ORM\DataObject;
 use SLC\Calendar\CalendarUtil;
 
-class CalendarController extends PageController {
+class CalendarController extends \PageController {
 
 	private static $allowed_actions = array(
 		// 'year'

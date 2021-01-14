@@ -7,7 +7,7 @@ use SilverStripe\ORM\DataObject;
 use SLC\Calendar\CalendarUtil;
 
 class CalendarDateTime extends DataObject {
-
+	private static $table_name = 'CalendarDateTime';
 	private static $db = array(
 		'StartDate' => 'Date',
 		'StartTime' => 'Time',
@@ -22,7 +22,7 @@ class CalendarDateTime extends DataObject {
 	);
 
 	private static $has_one = array(
-		'Event' => 'CalendarEvent',
+		'Event' => CalendarEvent::class,
 	);
 
 	private static $summary_fields = array(
@@ -41,6 +41,7 @@ class CalendarDateTime extends DataObject {
 
 	public function getDateRange() {
 		list($strStartDate, $strEndDate) = CalendarUtil::get_date_string($this->StartDate, $this->EndDate);
+
 		$html = "<span class='dtstart' title='" . $this->MicroformatStart() . "'>" . $strStartDate . "</span>";
 		$html .= ($strEndDate != "") ? "-" : "";
 		$html .= "<span class='dtend' title='" . $this->MicroformatEnd() . "'>";

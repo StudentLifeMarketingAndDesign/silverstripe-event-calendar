@@ -1,5 +1,5 @@
 <?php
-
+namespace SLC\Calendar;
 /*
  * This file is part of the sfDateTimePlugin package.
  * (c) 2007 Stephen Riesenberg <sjohnr@gmail.com>
@@ -20,8 +20,7 @@
  * @author	Stephen Riesenberg <sjohnr@gmail.com>
  * @version	SVN: $Id$
  */
-class sfDate
-{
+class sfDate {
 	/**
 	 * The timestamp for this sfDate instance.
 	 */
@@ -45,8 +44,7 @@ class sfDate
 	 * @param	mixed	timestamp, string, or sfDate object
 	 * @return	sfDate
 	 */
-	public static function getInstance($value = null)
-	{
+	public static function getInstance($value = null) {
 		return new sfDate($value);
 	}
 
@@ -55,8 +53,7 @@ class sfDate
 	 *
 	 * @param	mixed	timestamp, string, or sfDate object
 	 */
-	public function __construct($value = null)
-	{
+	public function __construct($value = null) {
 		$this->set($value);
 	}
 
@@ -65,8 +62,7 @@ class sfDate
 	 *
 	 * @return	string
 	 */
-	public function format($format)
-	{
+	public function format($format) {
 		return date($format, $this->ts);
 	}
 
@@ -75,8 +71,7 @@ class sfDate
 	 *
 	 * @return	string
 	 */
-	public function date($format = 'd')
-	{
+	public function date($format = 'd') {
 		return date('Y-m-d', $this->ts);
 	}
 
@@ -85,8 +80,7 @@ class sfDate
 	 *
 	 * @return	string
 	 */
-	public function datetime($format = 'F')
-	{
+	public function datetime($format = 'F') {
 		return date('Y-m-d H:i:s', $this->ts);
 	}
 
@@ -95,8 +89,7 @@ class sfDate
 	 *
 	 * @return	string
 	 */
-	public function dump()
-	{
+	public function dump() {
 		return date('Y-m-d H:i:s', $this->ts);
 	}
 
@@ -108,34 +101,32 @@ class sfDate
 	 *
 	 * @throws	sfDateTimeException
 	 */
-	public function retrieve($unit = sfTime::DAY)
-	{
-		switch ($unit)
-		{
-			case sfTime::SECOND:
-				return date('s', $this->ts);
-			case sfTime::MINUTE:
-				return date('i', $this->ts);
-			case sfTime::HOUR:
-				return date('H', $this->ts);
-			case sfTime::DAY:
-				return date('d', $this->ts);
-			case sfTime::WEEK:
-				return date('W', $this->ts);
-			case sfTime::MONTH:
-				return date('m', $this->ts);
-			case sfTime::QUARTER:
-				return ceil(date('m', $this->ts) / 3);
-			case sfTime::YEAR:
-				return date('Y', $this->ts);
-			case sfTime::DECADE:
-				return ceil((date('Y', $this->ts) % 100) / 10);
-			case sfTime::CENTURY:
-				return ceil(date('Y', $this->ts) / 100);
-			case sfTime::MILLENIUM:
-				return ceil(date('Y', $this->ts) / 1000);
-			default:
-				throw new sfDateTimeException(sprintf('The unit of time provided is not valid: %s', $unit));
+	public function retrieve($unit = sfTime::DAY) {
+		switch ($unit) {
+		case sfTime::SECOND:
+			return date('s', $this->ts);
+		case sfTime::MINUTE:
+			return date('i', $this->ts);
+		case sfTime::HOUR:
+			return date('H', $this->ts);
+		case sfTime::DAY:
+			return date('d', $this->ts);
+		case sfTime::WEEK:
+			return date('W', $this->ts);
+		case sfTime::MONTH:
+			return date('m', $this->ts);
+		case sfTime::QUARTER:
+			return ceil(date('m', $this->ts) / 3);
+		case sfTime::YEAR:
+			return date('Y', $this->ts);
+		case sfTime::DECADE:
+			return ceil((date('Y', $this->ts) % 100) / 10);
+		case sfTime::CENTURY:
+			return ceil(date('Y', $this->ts) / 100);
+		case sfTime::MILLENIUM:
+			return ceil(date('Y', $this->ts) / 1000);
+		default:
+			throw new sfDateTimeException(sprintf('The unit of time provided is not valid: %s', $unit));
 		}
 	}
 
@@ -144,8 +135,7 @@ class sfDate
 	 *
 	 * @return	timestamp
 	 */
-	public function get()
-	{
+	public function get() {
 		return $this->ts;
 	}
 
@@ -159,13 +149,11 @@ class sfDate
 	 *
 	 * @return	sfDate	the modified object, for chainability
 	 */
-	public function set($value = null)
-	{
+	public function set($value = null) {
 		$ts = sfDateTimeToolkit::getTS($value);
 
 		$this->ts = $ts;
-		if ($this->init === null)
-		{
+		if ($this->init === null) {
 			$this->init = $ts;
 		}
 
@@ -177,8 +165,7 @@ class sfDate
 	 *
 	 * @return	sfDate	the reset object, for chainability
 	 */
-	public function reset()
-	{
+	public function reset() {
 		$this->ts = $this->init;
 
 		return $this;
@@ -190,17 +177,13 @@ class sfDate
 	 * @param	mixed	timestamp, string, or sfDate object
 	 * @return	int		-1, 0, or 1
 	 */
-	public function cmp($value)
-	{
+	public function cmp($value) {
 		$ts = sfDateTimeToolkit::getTS($value);
 
-		if ($this->ts < $ts)
-		{
+		if ($this->ts < $ts) {
 			// less than
 			return -1;
-		}
-		else if ($this->ts > $ts)
-		{
+		} else if ($this->ts > $ts) {
 			// greater than
 			return 1;
 		}
@@ -215,8 +198,7 @@ class sfDate
 	 * @param	mixed	timestamp, string, or sfDate object
 	 * @param	int		the difference in seconds
 	 */
-	public function diff($value)
-	{
+	public function diff($value) {
 		$ts = sfDateTimeToolkit::getTS($value);
 
 		return $this->ts - $ts;
@@ -235,12 +217,10 @@ class sfDate
 	 *
 	 * @return	sfDate	the modified object, for chainability
 	 */
-	public function __call($method, $arguments)
-	{
+	public function __call($method, $arguments) {
 		$callable = array('sfTime', $method);
 
-		if (!is_callable($callable))
-		{
+		if (!is_callable($callable)) {
 			throw new sfDateTimeException(sprintf('Call to undefined function: %s::%s', 'sfDate', $method));
 		}
 
