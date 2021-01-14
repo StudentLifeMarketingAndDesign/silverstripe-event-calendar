@@ -21,6 +21,8 @@ class CalendarEvent extends \Page {
 		'DateTimes' => CalendarDateTime::class,
 	);
 
+	private static $can_be_root = false;
+
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 
