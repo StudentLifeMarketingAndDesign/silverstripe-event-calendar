@@ -2,6 +2,8 @@
 
 namespace SLC\Calendar;
 
+use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\Assets\Image;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
@@ -17,6 +19,10 @@ class CalendarEvent extends \Page {
 	);
 	private static $icon_class = 'font-icon-p-event-alt';
 
+	private static $has_one = array(
+		'Image' => Image::class,
+	);
+
 	private static $has_many = array(
 		'DateTimes' => CalendarDateTime::class,
 	);
@@ -26,6 +32,7 @@ class CalendarEvent extends \Page {
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 
+		$fields->addFieldToTab('Root.Main', new UploadField('Image', 'Image'), 'Content');
 		$fields->addFieldToTab('Root.Main', new TextField('Location', 'Location'), 'Content');
 		$fields->addFieldToTab('Root.Main', new CheckboxField('isOnline', 'Is Virtual Event?'), 'Content');
 		$fields->addFieldToTab('Root.Main', new TextField('OnlineLocationUrl', 'Virtual Event Link'), 'Content');

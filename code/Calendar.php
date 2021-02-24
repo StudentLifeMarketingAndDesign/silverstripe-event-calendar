@@ -1,7 +1,7 @@
 <?php
 
 namespace SLC\Calendar;
-
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
 
 class Calendar extends \Page {
@@ -98,8 +98,20 @@ class Calendar extends \Page {
 
 	public function AllEvents() {
 		$calendar = $this;
+		$events = new ArrayList();
 		$events = $calendar->getEventList('1900-01-01', '3000-01-01');
+
 		return $events;
+	}
+
+	public function UpcomingEvents() {
+		$calendar = $this;
+		$events = new ArrayList();
+		$start = date('Y-m-d', time());
+		$events = $calendar->getEventList($start, '3000-01-01');
+
+		return $events;
+
 	}
 
 	public function AllDates() {
